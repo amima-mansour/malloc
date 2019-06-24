@@ -15,6 +15,26 @@ ifeq ($(HOSTTYPE),)
 endif
 
 ################################################################################
+# SOURCES       															   #
+################################################################################
+
+SRCS		= $(addprefix $(PATH_SRC)/, \
+							address.c\
+							blocks.c\
+							calloc.c\
+							char.c\
+							free.c\
+							hexdump.c\
+							malloc.c\
+							number.c\
+							realloc.c\
+							show_alloc_mem.c\
+							size.c\
+							string.c\
+							tools.c\
+							zones.c)
+
+################################################################################
 # BASIC VARIABLES															   #
 ################################################################################
 
@@ -25,25 +45,8 @@ PATH_INC	= inc
 NAME		= libft_malloc_$(HOSTTYPE).so
 CFLAGS		= -Wall -Wextra -Werror
 DLFLAGS		= -shared -fPIC
-OBJECTS		= $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRCS))
+OBJECTS 	= $(SRCS:$(PATH_SRC)/%.c=$(PATH_OBJ)/%.o)
 DEBUG		= -g -O0
-
-################################################################################
-# SOURCES       															   #
-################################################################################
-
-SRCS		= $(addprefix $(PATH_SRC)/, \
-							free.c\
-							malloc.c\
-							calloc.c\
-							realloc.c\
-							size.c\
-							blocks.c\
-							tools.c\
-							zones.c\
-							show_alloc_mem.c)
-
-
 
 ################################################################################
 # RULES																		   #

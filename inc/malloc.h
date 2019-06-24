@@ -19,13 +19,12 @@
 # include <stdlib.h>
 # include <pthread.h>
 
-# define BASE 						"0123456789ABCDEF"
+# define BASE_16 					"0123456789ABCDEF"
 # define ALIGNEMENT             	16
 # define ALIGN(size, alignement)	((size + (alignement - 1)) & ~(alignement - 1))
-# define P_SIZE						pagesize()
+# define P_SIZE						getpagesize()
 # define B_SIZE						sizeof(t_block)
-# define MIN(size_a, size_b)		(size_a >= size_b ? size_b : size_a)
-# define TINY_MAX					352
+# define TINY_MAX					1024
 # define SMALL_MAX					4064
 # define MIN_ALLOC_NB				100
 
@@ -36,9 +35,16 @@ typedef enum		e_type
 	LARGE
 }					t_type;
 
-typedef struct		s_zone
+typedef struct		s_block
 {
-	size_t          size;
+	size_t			size;
+	char			free;
+	struct s_block	*next;
+	struct s_block	*prev;
+}					t_block;
+
+typedef struct		s_zone
+{          
 	t_type  		type;
 	t_block         *tiny;
 	t_block  		*small;
@@ -48,15 +54,8 @@ typedef struct		s_zone
 
 t_zone              g_zone;
 
-typedef struct		s_block
-{
-	size_t			size;
-	char			free;
-	struct s_block	*next;
-	struct s_block	*prev;
-}					t_block;
-
 extern pthread_mutex_t	g_mutex;
+
 /*
 **	malloc.c
 */
@@ -86,6 +85,7 @@ void *calloc(size_t nmemb, size_t size);
 t_block   *find_addr_in_zone(t_block *blocks_zone, void *addr);
 void    initialize_zone(size_t size);
 void	display_zone(t_block *blocks, size_t *total);
+void	display_zone_hex(t_block *blocks);
 
 /*
 **	blocks.c
@@ -93,7 +93,7 @@ void	display_zone(t_block *blocks, size_t *total);
 t_block		*split_block(t_block *block, size_t size);
 t_block		*last_block(void);
 t_block		*create_space(size_t size);
-void		*free_place(size);
+void		*free_place(size_t size);
 t_block		*find_or_create_block(size_t size);
 t_block		*find_block(void *ptr);
 size_t		display_blocks(t_block *blocks);
@@ -113,7 +113,6 @@ size_t	get_right_mmmap_size(size_t size);
 ** number.c
 */
 void		ft_put_octet(size_t n);
-void		ft_putnbr_fd(int n, int fd);
 void		ft_putnbr(int n);
 
 /*
@@ -127,18 +126,22 @@ void	ft_putchar(char c);
 */
 size_t	ft_strlen(const char *s);
 void	ft_putstr(char const *s);
-void	ft_putstr_fd(char const *s, int fd);
 void	ft_putendl(char const *s);
 
 /*
 **	address.c
 */
 void	ft_putaddr(unsigned long long int n);
-void	ft_putaddr_fd(unsigned long long int n, int fd);
 
 /*
 **	show_alloc_mem.c
 */
 void	show_alloc_mem(void);
+void	show_alloc_mem_hex(void);
+
+/*
+**	hexdump.c
+*/
+void	hexdump(void *addr, size_t size);
 
 #endif

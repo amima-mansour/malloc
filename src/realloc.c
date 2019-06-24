@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:47:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/05/29 13:47:39 by amansour         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:40:56 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,3 @@ void		*realloc(void *ptr, size_t size)
 		return (ptr);
 	return (arrange_memory(b, new_size));
 }
-

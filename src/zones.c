@@ -42,7 +42,7 @@ void	display_zone(t_block *block, size_t *total)
 	}
 }
 
-void	display_zone_ex(t_block *block)
+void	display_zone_hex(t_block *block)
 {
 	int		total;
 
@@ -51,7 +51,7 @@ void	display_zone_ex(t_block *block)
 	{
 		if (block->free == 0)
 		{
-			dumpHex((char *)block + B_SIZE, block->size);
+			hexdump((char *)block + B_SIZE, block->size);
 			total++;
 		}
 		block = block->next;

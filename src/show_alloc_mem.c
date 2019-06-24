@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:48:00 by amansour          #+#    #+#             */
-/*   Updated: 2019/05/29 13:48:02 by amansour         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:41:20 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,17 @@ void	show_alloc_mem(void)
 	ft_putstr("Total : ");
 	ft_put_octet(total);
 	ft_putendl(" octets");
+	pthread_mutex_unlock(&g_mutex);
+}
+
+void	show_alloc_mem_hex(void)
+{
+	pthread_mutex_lock(&g_mutex);
+	ft_putstr("TINY : ");
+	display_zone_hex(g_zone.tiny);
+	ft_putstr("SMALL : ");
+	display_zone_hex(g_zone.small);
+	ft_putstr("LARGE : ");
+	display_zone_hex(g_zone.large);
 	pthread_mutex_unlock(&g_mutex);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   blocks.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/24 14:36:52 by amansour          #+#    #+#             */
+/*   Updated: 2019/06/24 14:37:40 by amansour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/malloc.h"
 
 t_block		*last_block(void){
@@ -26,7 +38,7 @@ t_block		*split_block(t_block *block, size_t size)
 	block->size = size;
 	block->next = new_block;
 	block->free = 0;
-    if (right)
+	if (right)
 		right->prev = new_block;
 	return (block);
 }
@@ -36,7 +48,7 @@ t_block		*create_space(size_t size)
 {
 	t_block	*block;
 	t_block *previous;
-    size_t	new_size;
+	size_t	new_size;
 
 	new_size = get_right_mmmap_size(size);
 	block = mmap(0, new_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE,
@@ -52,7 +64,7 @@ t_block		*create_space(size_t size)
 	return (block);
 }
 
-void		*free_place(size){
+void		*free_place(size_t size){
 	t_block *block;
 
 	block = g_zone.current;
@@ -70,9 +82,9 @@ t_block		*find_or_create_block(size_t size)
 
 	if (!g_zone.current || !(block = free_place(size)))
 		block = create_space(size);
-    if (block->size > size)
-	    return (split_block(block, size));
-    return (block);
+	if (block->size > size)
+		return (split_block(block, size));
+	return (block);
 }
 
 t_block		*find_block(void *ptr)
