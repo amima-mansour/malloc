@@ -44,7 +44,7 @@ typedef struct		s_block
 }					t_block;
 
 typedef struct		s_zone
-{          
+{
 	t_type  		type;
 	t_block         *tiny;
 	t_block  		*small;

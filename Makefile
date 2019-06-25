@@ -25,9 +25,9 @@ SRCS		= $(addprefix $(PATH_SRC)/, \
 							char.c\
 							free.c\
 							hexdump.c\
+							realloc.c\
 							malloc.c\
 							number.c\
-							realloc.c\
 							show_alloc_mem.c\
 							size.c\
 							string.c\

@@ -93,7 +93,7 @@ t_block		*find_block(void *ptr)
 {
 	t_block		*block;
 
-	pthread_mutex_lock(&g_mutex);
+	//pthread_mutex_lock(&g_mutex);
 	block = find_addr_in_zone(g_zone.large, ptr);
 	if (block == NULL)
 	{
@@ -108,7 +108,7 @@ t_block		*find_block(void *ptr)
 	}
 	else
 		g_zone.type = LARGE;
-	pthread_mutex_unlock(&g_mutex);
+	//pthread_mutex_unlock(&g_mutex);
 	return (block);
 }
 

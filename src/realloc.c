@@ -19,11 +19,13 @@ void	*arrange_memory(t_block *block, size_t size)
 
 	pthread_mutex_lock(&g_mutex);
 	type = g_zone.type;
+	pthread_mutex_unlock(&g_mutex);
 	new = (char *)malloc(size);
+	pthread_mutex_lock(&g_mutex);
 	ft_memmove(new, (char *)block + B_SIZE, block->size);
 	g_zone.type = type;
-	clear_memory(block);
 	pthread_mutex_unlock(&g_mutex);
+	clear_memory(block);
 	return (new);
 }
 
