@@ -15,8 +15,8 @@
 t_block		*last_block(void){
 	t_block *block;
 
-	block = g_zone.current;
-	while (block->next){
+	block = *g_zone.current;
+	while (block && block->next){
 	 	block = block->next;
 	}
 	return block;
@@ -60,14 +60,14 @@ t_block		*create_space(size_t size)
 	block->next = NULL;
 	if ((previous = last_block()))
 		previous->next = block;
-	block->prev = previous;
+	block->prev = NULL;
 	return (block);
 }
 
 void		*free_place(size_t size){
 	t_block *block;
 
-	block = g_zone.current;
+	block = *g_zone.current;
 	while (block){
 		if (block->size >= size && block->free)
 			return block;
@@ -76,12 +76,14 @@ void		*free_place(size_t size){
 	return block;
 }
 
-t_block		*find_or_create_block(size_t size)
+t_block		*find_or_create_block(size_t size, t_block **current)
 {
 	t_block *block;
 
-	if (!g_zone.current || !(block = free_place(size)))
+	if (!(*current) || !(block = free_place(size)))
 		block = create_space(size);
+	if (!(*current))
+		*current = block;
 	if (block->size > size)
 		return (split_block(block, size));
 	return (block);

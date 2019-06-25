@@ -5,17 +5,17 @@ void    initialize_zone(size_t size)
     if (size <= TINY_MAX)
 	{
 		g_zone.type = TINY;
-		g_zone.current = g_zone.tiny;
+		g_zone.current = &g_zone.tiny;
 	}
 	else if (size <= SMALL_MAX)
 	{
 		g_zone.type = SMALL;
-		g_zone.current = g_zone.small;
+		g_zone.current = &g_zone.small;
 	}
 	else
 	{
 		g_zone.type = LARGE;
-		g_zone.current = g_zone.large;
+		g_zone.current = &g_zone.large;
 	}
 }
 

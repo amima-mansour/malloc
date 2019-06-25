@@ -23,9 +23,9 @@ void				*malloc(size_t size)
 	if ((int)size < 0)
 		return (NULL);
 	pthread_mutex_lock(&g_mutex);
-	initialize_zone(ALIGN(size, ALIGNEMENT));
 	new_size = ALIGN(size, ALIGNEMENT);
-	bp = find_or_create_block(new_size);
+	initialize_zone(new_size);
+	bp = find_or_create_block(new_size, g_zone.current);
 	pthread_mutex_unlock(&g_mutex);
-	return bp;
+	return ((char*)bp + B_SIZE);
 }

@@ -63,4 +63,5 @@ void	free(void *ptr)
 	if (ptr == NULL || !(b_exist = find_block(ptr)))
 		return ;
 	clear_memory(b_exist);
+	ft_putstr("FREE FINISHED");
 }

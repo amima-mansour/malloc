@@ -25,7 +25,7 @@
 # define P_SIZE						getpagesize()
 # define B_SIZE						sizeof(t_block)
 # define TINY_MAX					1024
-# define SMALL_MAX					4064
+# define SMALL_MAX					4096
 # define MIN_ALLOC_NB				100
 
 typedef enum		e_type
@@ -49,7 +49,7 @@ typedef struct		s_zone
 	t_block         *tiny;
 	t_block  		*small;
 	t_block  		*large;
-	t_block         *current;
+	t_block         **current;
 }					t_zone;
 
 t_zone              g_zone;
@@ -94,7 +94,7 @@ t_block		*split_block(t_block *block, size_t size);
 t_block		*last_block(void);
 t_block		*create_space(size_t size);
 void		*free_place(size_t size);
-t_block		*find_or_create_block(size_t size);
+t_block		*find_or_create_block(size_t size, t_block **current);
 t_block		*find_block(void *ptr);
 size_t		display_blocks(t_block *blocks);
 

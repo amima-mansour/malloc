@@ -10,5 +10,6 @@ int main()
 	{
 		i++;
 	}
+	printf("OK");
 	return (0); 
 }
