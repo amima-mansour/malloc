@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:38:32 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/24 14:39:02 by amansour         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:25:48 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	hexdump_line(void *addr, size_t size)
 	ft_putchar('\n');
 }
 
-void		hexdump(void *addr, size_t size)
+void	hexdump(void *addr, size_t size)
 {
 	hexdump_line(addr, size);
 	size -= 16;

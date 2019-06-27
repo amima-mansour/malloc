@@ -12,7 +12,7 @@
 
 #include "../inc/malloc.h"
 
-void *calloc (size_t nmemb, size_t size)
+void	*calloc(size_t nmemb, size_t size)
 {
 	void	*block;
 

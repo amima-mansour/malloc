@@ -6,12 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:48:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/05/29 13:48:39 by amansour         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:25:14 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/malloc.h"
-
 
 void	merge_blocks(t_block *b1, t_block *b2)
 {
@@ -27,14 +26,15 @@ void	merge_blocks(t_block *b1, t_block *b2)
 	b2->size = 0;
 }
 
-void    clear_memory(t_block *block)
+void	clear_memory(t_block *block)
 {
 	t_block	*l;
 	t_block	*r;
 
+	pthread_mutex_lock(&g_mutex);
 	l = block->prev;
 	r = block->next;
-	pthread_mutex_lock(&g_mutex);
+	block->free = 1;
 	if (g_zone.type == LARGE)
 	{
 		if (l)
@@ -54,7 +54,6 @@ void    clear_memory(t_block *block)
 	}
 	pthread_mutex_unlock(&g_mutex);
 }
-
 
 void	free(void *ptr)
 {

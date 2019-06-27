@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   zones.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/27 17:28:55 by amansour          #+#    #+#             */
+/*   Updated: 2019/06/27 17:29:03 by amansour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/malloc.h"
 
-void    initialize_zone(size_t size)
+void		initialize_zone(size_t size)
 {
-    if (size <= TINY_MAX)
+	if (size <= TINY_MAX)
 	{
 		g_zone.type = TINY;
 		g_zone.current = &g_zone.tiny;
@@ -19,9 +31,9 @@ void    initialize_zone(size_t size)
 	}
 }
 
-t_block   *find_addr_in_zone(t_block *blocks_zone, void *addr)
+t_block		*find_addr_in_zone(t_block *blocks_zone, void *addr)
 {
-    while (blocks_zone)
+	while (blocks_zone)
 	{
 		if ((unsigned char *)blocks_zone + B_SIZE == (unsigned char *)addr)
 			return (blocks_zone);
@@ -30,7 +42,7 @@ t_block   *find_addr_in_zone(t_block *blocks_zone, void *addr)
 	return (blocks_zone);
 }
 
-void	display_zone(t_block *block, size_t *total)
+void		display_zone(t_block *block, size_t *total)
 {
 	if (block == NULL)
 		ft_putendl("NOTHING");
@@ -42,7 +54,7 @@ void	display_zone(t_block *block, size_t *total)
 	}
 }
 
-void	display_zone_hex(t_block *block)
+void		display_zone_hex(t_block *block)
 {
 	int		total;
 

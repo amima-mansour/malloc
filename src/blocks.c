@@ -6,21 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:36:52 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/24 14:37:40 by amansour         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:24:11 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/malloc.h"
-
-t_block		*last_block(void){
-	t_block *block;
-
-	block = *g_zone.current;
-	while (block && block->next){
-	 	block = block->next;
-	}
-	return block;
-}
 
 t_block		*split_block(t_block *block, size_t size)
 {
@@ -43,12 +33,11 @@ t_block		*split_block(t_block *block, size_t size)
 	return (block);
 }
 
-
 t_block		*create_space(size_t size)
 {
-	t_block	*block;
-	t_block *previous;
-	size_t	new_size;
+	t_block		*block;
+	t_block		*previous;
+	size_t		new_size;
 
 	new_size = get_right_mmmap_size(size);
 	block = mmap(0, new_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE,
@@ -64,16 +53,18 @@ t_block		*create_space(size_t size)
 	return (block);
 }
 
-void		*free_place(size_t size){
+void		*free_place(size_t size)
+{
 	t_block *block;
 
 	block = *g_zone.current;
-	while (block){
+	while (block)
+	{
 		if (block->size >= size && block->free)
-			return block;
-	    block = block->next;
+			return (block);
+		block = block->next;
 	}
-	return block;
+	return (block);
 }
 
 t_block		*find_or_create_block(size_t size, t_block **current)
@@ -93,7 +84,7 @@ t_block		*find_block(void *ptr)
 {
 	t_block		*block;
 
-	//pthread_mutex_lock(&g_mutex);
+	pthread_mutex_lock(&g_mutex);
 	block = find_addr_in_zone(g_zone.large, ptr);
 	if (block == NULL)
 	{
@@ -108,32 +99,6 @@ t_block		*find_block(void *ptr)
 	}
 	else
 		g_zone.type = LARGE;
-	//pthread_mutex_unlock(&g_mutex);
+	pthread_mutex_unlock(&g_mutex);
 	return (block);
-}
-
-size_t	display_blocks(t_block *blocks)
-{
-	char	*start;
-	char	*end;
-	size_t	total;
-
-	total = 0;
-	while (blocks)
-	{
-		if (blocks->free == 0)
-		{
-			start = (char *)blocks + B_SIZE;
-			end = (char *)blocks + B_SIZE + blocks->size;
-			ft_putaddr((unsigned long long)start);
-			ft_putstr(" - ");
-			ft_putaddr((unsigned long long)end);
-			ft_putstr(" : ");
-			ft_put_octet((size_t)(end - start));
-			ft_putendl(" octets");
-			total += (size_t)(end - start);
-		}
-		blocks = blocks->next;
-	}
-	return (total);
 }

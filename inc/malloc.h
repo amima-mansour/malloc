@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:36:23 by amansour          #+#    #+#             */
-/*   Updated: 2019/05/29 13:36:32 by amansour         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:41:51 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,133 +15,130 @@
 
 # include <sys/mman.h>
 # include <unistd.h>
-# include <stdbool.h>
-# include <stdlib.h>
 # include <pthread.h>
 
-# define BASE_16 					"0123456789ABCDEF"
-# define ALIGNEMENT             	16
-# define ALIGN(size, alignement)	((size + (alignement - 1)) & ~(alignement - 1))
-# define P_SIZE						getpagesize()
-# define B_SIZE						sizeof(t_block)
-# define TINY_MAX					1024
-# define SMALL_MAX					4096
-# define MIN_ALLOC_NB				100
+# define BASE_16		"0123456789ABCDEF"
+# define ALIGNEMENT		16
+# define ALIGN(s, al)	((s + (al - 1))& ~(al - 1))
+# define P_SIZE			getpagesize()
+# define B_SIZE			sizeof(t_block)
+# define TINY_MAX			1024
+# define SMALL_MAX		4096
+# define MIN_ALLOC_NB	100
 
-typedef enum		e_type
+typedef enum			e_type
 {
 	TINY,
 	SMALL,
 	LARGE
-}					t_type;
+}						t_type;
 
-typedef struct		s_block
+typedef struct			s_block
 {
-	size_t			size;
-	char			free;
-	struct s_block	*next;
-	struct s_block	*prev;
-}					t_block;
+	size_t				size;
+	char				free;
+	struct s_block		*next;
+	struct s_block		*prev;
+}						t_block;
 
-typedef struct		s_zone
+typedef struct			s_zone
 {
-	t_type  		type;
-	t_block         *tiny;
-	t_block  		*small;
-	t_block  		*large;
-	t_block         **current;
-}					t_zone;
+	t_type				type;
+	t_block				*tiny;
+	t_block				*small;
+	t_block				*large;
+	t_block				**current;
+}						t_zone;
 
-t_zone              g_zone;
+t_zone					g_zone;
 
 extern pthread_mutex_t	g_mutex;
 
 /*
 **	malloc.c
 */
-void    *malloc(size_t size);
+void					*malloc(size_t size);
 
 /*
 **	free.c
 */
-void	free(void *ptr);
-void    clear_memory(t_block *block);
-void	merge_blocks(t_block *b1, t_block *b2);
+void					free(void *ptr);
+void					clear_memory(t_block *block);
+void					merge_blocks(t_block *b1, t_block *b2);
 
 /*
 ** realloc.c
 */
-void	*arrange_memory(t_block *block, size_t size);
-void	*realloc(void *ptr, size_t size);
+void					*arrange_memory(t_block *block, size_t size);
+void					*realloc(void *ptr, size_t size);
 
 /*
 **	calloc.c
 */
-void *calloc(size_t nmemb, size_t size);
+void					*calloc(size_t nmemb, size_t size);
 
 /*
 **	zones.c
 */
-t_block   *find_addr_in_zone(t_block *blocks_zone, void *addr);
-void    initialize_zone(size_t size);
-void	display_zone(t_block *blocks, size_t *total);
-void	display_zone_hex(t_block *blocks);
+t_block					*find_addr_in_zone(t_block *blocks_zone, void *addr);
+void					initialize_zone(size_t size);
+void					display_zone(t_block *blocks, size_t *total);
+void					display_zone_hex(t_block *blocks);
 
 /*
 **	blocks.c
 */
-t_block		*split_block(t_block *block, size_t size);
-t_block		*last_block(void);
-t_block		*create_space(size_t size);
-void		*free_place(size_t size);
-t_block		*find_or_create_block(size_t size, t_block **current);
-t_block		*find_block(void *ptr);
-size_t		display_blocks(t_block *blocks);
+t_block					*split_block(t_block *block, size_t size);
+t_block					*last_block(void);
+t_block					*create_space(size_t size);
+void					*free_place(size_t size);
+t_block					*find_or_create_block(size_t size, t_block **current);
+t_block					*find_block(void *ptr);
+size_t					display_blocks(t_block *blocks);
 
 /*
 **	tools.c
 */
-void	ft_bzero(void *s, size_t n);
-void	*ft_memmove(void *dst, const void *src, size_t len);
+void					ft_bzero(void *s, size_t n);
+void					*ft_memmove(void *dst, const void *src, size_t len);
 
 /*
 **	size.c
 */
-size_t	get_right_mmmap_size(size_t size);
+size_t					get_right_mmmap_size(size_t size);
 
 /*
 ** number.c
 */
-void		ft_put_octet(size_t n);
-void		ft_putnbr(int n);
+void					ft_put_octet(size_t n);
+void					ft_putnbr(int n);
 
 /*
 **	char.c
 */
-void	ft_putchar_fd(char c, int fd);
-void	ft_putchar(char c);
+void					ft_putchar(char c);
 
 /*
 **	string.c
 */
-size_t	ft_strlen(const char *s);
-void	ft_putstr(char const *s);
-void	ft_putendl(char const *s);
+size_t					ft_strlen(const char *s);
+void					ft_putstr(char const *s);
+void					ft_putendl(char const *s);
 
 /*
 **	address.c
 */
-void	ft_putaddr(unsigned long long int n);
+void					ft_putaddr(unsigned long long int n);
 
 /*
 **	show_alloc_mem.c
 */
-void	show_alloc_mem(void);
-void	show_alloc_mem_hex(void);
+void					show_alloc_mem(void);
+void					show_alloc_mem_hex(void);
 
 /*
 **	hexdump.c
 */
-void	hexdump(void *addr, size_t size);
+void					hexdump(void *addr, size_t size);
 
 #endif

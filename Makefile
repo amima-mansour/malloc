@@ -6,7 +6,7 @@
 #    By: amansour <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 13:33:28 by amansour          #+#    #+#              #
-#    Updated: 2019/05/29 13:33:33 by amansour         ###   ########.fr        #
+#    Updated: 2019/06/27 17:51:41 by amansour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ endif
 
 SRCS		= $(addprefix $(PATH_SRC)/, \
 							address.c\
+							blocks_2.c\
 							blocks.c\
 							calloc.c\
 							char.c\
@@ -68,6 +69,7 @@ $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 
 clean:
 	@rm -f $(OBJECTS)
+	@rm -rf $(PATH_OBJ)
 	@echo Delete $(words $(OBJECTS)) object file
 
 fclean: clean
