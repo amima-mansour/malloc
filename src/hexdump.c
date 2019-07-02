@@ -74,6 +74,4 @@ void	hexdump(void *addr, size_t size)
 		addr += 16;
 		hexdump(addr, size);
 	}
-	else
-		ft_putaddr((unsigned long long)addr);
 }
