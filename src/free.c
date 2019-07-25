@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:48:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/27 17:25:14 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/15 10:26:53 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	clear_memory(t_block *block)
 		if (l)
 			l->next = r;
 		else
-			g_zone.large = r;
+			g_zone.large = NULL;
 		if (r)
 			r->prev = l;
 		munmap(block, block->size + B_SIZE);

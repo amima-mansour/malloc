@@ -83,7 +83,6 @@ void					*calloc(size_t nmemb, size_t size);
 t_block					*find_addr_in_zone(t_block *blocks_zone, void *addr);
 void					initialize_zone(size_t size);
 void					display_zone(t_block *blocks, size_t *total);
-void					display_zone_hex(t_block *blocks);
 
 /*
 **	blocks.c
@@ -134,11 +133,5 @@ void					ft_putaddr(unsigned long long int n);
 **	show_alloc_mem.c
 */
 void					show_alloc_mem(void);
-void					show_alloc_mem_hex(void);
-
-/*
-**	hexdump.c
-*/
-void					hexdump(void *addr, size_t size);
 
 #endif

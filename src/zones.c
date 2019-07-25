@@ -53,21 +53,3 @@ void		display_zone(t_block *block, size_t *total)
 		*total += display_blocks(block);
 	}
 }
-
-void		display_zone_hex(t_block *block)
-{
-	int		total;
-
-	total = 0;
-	while (block)
-	{
-		if (block->free == 0)
-		{
-			hexdump((char *)block + B_SIZE, block->size);
-			total++;
-		}
-		block = block->next;
-	}
-	if (total == 0)
-		ft_putstr("No allocation in this type of zone\n");
-}

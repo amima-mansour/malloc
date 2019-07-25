@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:47:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/27 17:26:52 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/23 15:41:21 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	*realloc(void *ptr, size_t size)
 	size_t		new_size;
 	t_block		*b;
 
-	if ((int)size < 0)
-		return (NULL);
 	if (!ptr)
 		return (malloc(size));
 	if (!(b = find_block(ptr)))

@@ -20,8 +20,6 @@ void				*malloc(size_t size)
 	t_block		*bp;
 	size_t		new_size;
 
-	if ((int)size < 0)
-		return (NULL);
 	pthread_mutex_lock(&g_mutex);
 	new_size = ALIGN(size, ALIGNEMENT);
 	initialize_zone(new_size);

@@ -29,15 +29,3 @@ void	show_alloc_mem(void)
 	ft_putendl(" octets");
 	pthread_mutex_unlock(&g_mutex);
 }
-
-void	show_alloc_mem_hex(void)
-{
-	pthread_mutex_lock(&g_mutex);
-	ft_putstr("---TINY-------------------------\n");
-	display_zone_hex(g_zone.tiny);
-	ft_putstr("---SMALL------------------------\n");
-	display_zone_hex(g_zone.small);
-	ft_putstr("---LARGE---------------------------\n");
-	display_zone_hex(g_zone.large);
-	pthread_mutex_unlock(&g_mutex);
-}

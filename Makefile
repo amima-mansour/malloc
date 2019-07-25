@@ -6,7 +6,7 @@
 #    By: amansour <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 13:33:28 by amansour          #+#    #+#              #
-#    Updated: 2019/06/27 17:51:41 by amansour         ###   ########.fr        #
+#    Updated: 2019/07/02 09:55:59 by amansour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRCS		= $(addprefix $(PATH_SRC)/, \
 							calloc.c\
 							char.c\
 							free.c\
-							hexdump.c\
 							realloc.c\
 							malloc.c\
 							number.c\
@@ -47,7 +46,6 @@ NAME		= libft_malloc_$(HOSTTYPE).so
 CFLAGS		= -Wall -Wextra -Werror
 DLFLAGS		= -shared -fPIC
 OBJECTS 	= $(SRCS:$(PATH_SRC)/%.c=$(PATH_OBJ)/%.o)
-DEBUG		= -g -O0
 
 ################################################################################
 # RULES																		   #
@@ -65,7 +63,7 @@ $(NAME): $(OBJECTS)
 
 $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 	@mkdir -p $(PATH_OBJ)
-	$(CC) -c -o $@ $(CFLAGS) $^ -O0 -g  -I $(PATH_INC)/
+	@$(CC) -c -o $@ $(CFLAGS) $^ -I $(PATH_INC)/
 
 clean:
 	@rm -f $(OBJECTS)
@@ -73,7 +71,7 @@ clean:
 	@echo Delete $(words $(OBJECTS)) object file
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f libft_malloc.so
+	@rm -f $(NAME)
+	@rm -f libft_malloc.so
 
 re: fclean $(NAME)
