@@ -21,7 +21,7 @@
 # define ALIGNEMENT		16
 # define ALIGN(s, al)	((s + (al - 1))& ~(al - 1))
 # define P_SIZE			getpagesize()
-# define B_SIZE			sizeof(t_block)
+# define B_SIZE			ALIGN(sizeof(t_block), 16)
 # define TINY_MAX			1024
 # define SMALL_MAX		4096
 # define MIN_ALLOC_NB	100
@@ -89,8 +89,8 @@ void					display_zone(t_block *blocks, size_t *total);
 */
 t_block					*split_block(t_block *block, size_t size);
 t_block					*last_block(void);
-t_block					*create_space(size_t size);
-void					*free_place(size_t size);
+t_block					*create_space(size_t size, t_block *pre);
+void					*free_place(size_t size, t_block *block);
 t_block					*find_or_create_block(size_t size, t_block **current);
 t_block					*find_block(void *ptr);
 size_t					display_blocks(t_block *blocks);

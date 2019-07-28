@@ -40,7 +40,7 @@ void	clear_memory(t_block *block)
 		if (l)
 			l->next = r;
 		else
-			g_zone.large = NULL;
+			g_zone.large = r;
 		if (r)
 			r->prev = l;
 		munmap(block, block->size + B_SIZE);

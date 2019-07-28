@@ -51,8 +51,6 @@ OBJECTS 	= $(SRCS:$(PATH_SRC)/%.c=$(PATH_OBJ)/%.o)
 # RULES																		   #
 ################################################################################
 
-.PHONY: all
-
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
@@ -75,3 +73,4 @@ fclean: clean
 	@rm -f libft_malloc.so
 
 re: fclean $(NAME)
+.PHONY: $(NAME) clean fclean

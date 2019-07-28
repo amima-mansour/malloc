@@ -32,10 +32,11 @@ void	*arrange_memory(t_block *block, size_t size)
 void	*realloc(void *ptr, size_t size)
 {
 	size_t		new_size;
+    void        *p;
 	t_block		*b;
 
-	if (!ptr)
-		return (malloc(size));
+	if (!(p))
+        return (malloc(size));
 	if (!(b = find_block(ptr)))
 		return (NULL);
 	new_size = ALIGN(size, ALIGNEMENT);

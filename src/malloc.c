@@ -12,7 +12,6 @@
 
 #include "../inc/malloc.h"
 
-t_zone				g_zone = {TINY, NULL, NULL, NULL, NULL};
 pthread_mutex_t		g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void				*malloc(size_t size)

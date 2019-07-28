@@ -27,16 +27,14 @@ t_block		*split_block(t_block *block, size_t size)
 	new_block->next = right;
 	block->size = size;
 	block->next = new_block;
-	block->free = 0;
 	if (right)
 		right->prev = new_block;
 	return (block);
 }
 
-t_block		*create_space(size_t size)
+t_block		*create_space(size_t size, t_block *previous)
 {
 	t_block		*block;
-	t_block		*previous;
 	size_t		new_size;
 
 	new_size = get_right_mmmap_size(size);
@@ -47,22 +45,21 @@ t_block		*create_space(size_t size)
 	block->free = 0;
 	block->size = new_size;
 	block->next = NULL;
-	if ((previous = last_block()))
+    block->prev = previous;
+	if (previous)
 		previous->next = block;
-	block->prev = NULL;
 	return (block);
 }
 
-void		*free_place(size_t size)
+void		*free_place(size_t size, t_block *block)
 {
-	t_block *block;
-
-	block = *g_zone.current;
 	while (block)
 	{
 		if (block->size >= size && block->free)
 			return (block);
-		block = block->next;
+		if(!block->next)
+            break ;
+        block = block->next;
 	}
 	return (block);
 }
@@ -71,13 +68,15 @@ t_block		*find_or_create_block(size_t size, t_block **current)
 {
 	t_block *block;
 
-	if (!(*current) || !(block = free_place(size)))
-		block = create_space(size);
-	if (!(*current))
-		*current = block;
-	if (block->size > size)
-		return (split_block(block, size));
-	return (block);
+	if (!*current)
+    {
+        *current = create_space(size, *current);
+        return (*current);
+    }
+    block = free_place(size, *current);
+	if (block->size >= size && block->free)
+        return (split_block(block, size));
+	return (create_space(size, block));
 }
 
 t_block		*find_block(void *ptr)
