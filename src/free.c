@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:48:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/15 10:26:53 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/29 09:41:17 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	clear_memory(t_block *block)
 	t_block	*l;
 	t_block	*r;
 
-	pthread_mutex_lock(&g_mutex);
 	l = block->prev;
 	r = block->next;
 	block->free = 1;
+    ft_putstr("clear memory\n");
 	if (g_zone.type == LARGE)
 	{
 		if (l)
@@ -52,14 +52,20 @@ void	clear_memory(t_block *block)
 		if (l && l->free == 1)
 			merge_blocks(l, block);
 	}
-	pthread_mutex_unlock(&g_mutex);
+    ft_putstr("fn clear memory\n");
+
 }
 
 void	free(void *ptr)
 {
 	t_block		*b_exist;
 
+    ft_putstr("free\n");
 	if (ptr == NULL || !(b_exist = find_block(ptr)))
+    {
+        ft_putstr("fin free\n");
 		return ;
+    }
 	clear_memory(b_exist);
+    ft_putstr("fin free\n");
 }

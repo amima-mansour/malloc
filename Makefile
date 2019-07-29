@@ -6,7 +6,7 @@
 #    By: amansour <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 13:33:28 by amansour          #+#    #+#              #
-#    Updated: 2019/07/02 09:55:59 by amansour         ###   ########.fr        #
+#    Updated: 2019/07/29 10:07:52 by amansour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ PATH_SRC	= src
 PATH_INC	= inc
 
 NAME		= libft_malloc_$(HOSTTYPE).so
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror
 DLFLAGS		= -shared -fPIC
 OBJECTS 	= $(SRCS:$(PATH_SRC)/%.c=$(PATH_OBJ)/%.o)
 
@@ -54,7 +54,7 @@ OBJECTS 	= $(SRCS:$(PATH_SRC)/%.c=$(PATH_OBJ)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	@gcc $(DLFLAGS) -o $@ $(OBJECTS)
+	@gcc -g $(DLFLAGS) -o $@ $(OBJECTS)
 	@rm -f libft_malloc.so
 	@ln -s $(NAME) libft_malloc.so
 	@echo libft_malloc.so now link to $(NAME)

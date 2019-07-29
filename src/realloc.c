@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:47:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/23 15:41:21 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/29 09:14:55 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,22 @@ void	*arrange_memory(t_block *block, size_t size)
 	char		*new;
 	enum e_type	type;
 
-	pthread_mutex_lock(&g_mutex);
 	type = g_zone.type;
-	pthread_mutex_unlock(&g_mutex);
 	new = (char *)malloc(size);
-	pthread_mutex_lock(&g_mutex);
 	ft_memmove(new, (char *)block + B_SIZE, block->size);
 	g_zone.type = type;
-	pthread_mutex_unlock(&g_mutex);
 	clear_memory(block);
+    ft_putstr("fin realloc\n");
 	return (new);
 }
 
 void	*realloc(void *ptr, size_t size)
 {
 	size_t		new_size;
-    void        *p;
 	t_block		*b;
 
-	if (!(p))
+    ft_putstr("realloc\n");
+	if (!(ptr))
         return (malloc(size));
 	if (!(b = find_block(ptr)))
 		return (NULL);

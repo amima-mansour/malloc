@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:28:55 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/27 17:29:03 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/29 09:32:01 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,17 @@ void		initialize_zone(size_t size)
 
 t_block		*find_addr_in_zone(t_block *blocks_zone, void *addr)
 {
+    ft_putstr("find address\n");
 	while (blocks_zone)
 	{
 		if ((unsigned char *)blocks_zone + B_SIZE == (unsigned char *)addr)
 			return (blocks_zone);
-		blocks_zone = blocks_zone->next;
+		if (blocks_zone == blocks_zone->next)
+            ft_putstr("PB\n");
+        blocks_zone = blocks_zone->next;
 	}
-	return (blocks_zone);
+    ft_putstr("fin find address\n");
+	return (NULL);
 }
 
 void		display_zone(t_block *block, size_t *total)
