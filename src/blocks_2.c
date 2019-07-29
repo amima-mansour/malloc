@@ -12,11 +12,9 @@
 
 #include "../inc/malloc.h"
 
-t_block		*last_block(void)
+t_block		*last_block(t_block *block)
 {
-	t_block *block;
 
-	block = *g_zone.current;
 	while (block && block->next)
 	{
 		block = block->next;

@@ -34,7 +34,7 @@ void	clear_memory(t_block *block)
 	l = block->prev;
 	r = block->next;
 	block->free = 1;
-    ft_putstr("clear memory\n");
+    // ft_putstr("clear memory\n");
 	if (g_zone.type == LARGE)
 	{
 		if (l)
@@ -52,7 +52,7 @@ void	clear_memory(t_block *block)
 		if (l && l->free == 1)
 			merge_blocks(l, block);
 	}
-    ft_putstr("fn clear memory\n");
+    // ft_putstr("fn clear memory\n");
 
 }
 

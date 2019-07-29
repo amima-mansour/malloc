@@ -88,7 +88,7 @@ void					display_zone(t_block *blocks, size_t *total);
 **	blocks.c
 */
 t_block					*split_block(t_block *block, size_t size);
-t_block					*last_block(void);
+t_block					*last_block(t_block *b);
 t_block					*create_space(size_t size, t_block *pre);
 void					*free_place(size_t size, t_block *block);
 t_block					*find_or_create_block(size_t size, t_block **current);

@@ -19,10 +19,10 @@ void				*malloc(size_t size)
 	t_block		*bp;
 	size_t		new_size;
     
-    //ft_putstr("malloc\n");
+    ft_putstr("malloc\n");
 	new_size = ALIGN(size, ALIGNEMENT);
 	initialize_zone(new_size);
 	bp = find_or_create_block(new_size, g_zone.current);
-	//ft_putstr("fin malloc\n");
+	ft_putstr("fin malloc\n");
     return ((char*)bp + B_SIZE);
 }

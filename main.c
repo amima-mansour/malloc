@@ -318,7 +318,7 @@ int		main(void)
 	// test_realloc4();
 
 	// test_defragm1();
-	// test_defragm2();
+	//test_defragm2();
 	// test_defragm3();
 	// test_defragm4();
 
