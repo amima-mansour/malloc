@@ -31,27 +31,14 @@ void		initialize_zone(size_t size)
 	}
 }
 
-t_block		*find_addr_in_zone(t_block *blocks_zone, void *addr)
+t_block	*find_addr_in_zone(t_block *blocks, void *ptr)
 {
-    ft_putstr("find address\n");
-	while (blocks_zone)
+	while (blocks)
 	{
-		// ft_putnbr(blocks_zone->free);
-		// ft_putstr("\n");
-		// if (g_zone.type == SMALL)
-		// 	ft_putstr("SMALL\n");
-		// else if (g_zone.type == LARGE)
-		// 	ft_putstr("LARGE\n");
-		// else
-		// 	ft_putstr("TINY\n");	
-		// ft_putstr("\n");
-		if ((unsigned char *)blocks_zone + B_SIZE == (unsigned char *)addr)
-			return (blocks_zone);
-		//sleep(0.5);
-		blocks_zone = blocks_zone->next;
-
+		if ((unsigned char *)blocks + B_SIZE == (unsigned char *)ptr)
+			return (blocks);
+		blocks = blocks->next;
 	}
-    ft_putstr("fin find address\n");
 	return (NULL);
 }
 

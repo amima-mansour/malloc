@@ -90,8 +90,8 @@ void					display_zone(t_block *blocks, size_t *total);
 t_block					*split_block(t_block *block, size_t size);
 t_block					*last_block(t_block *b);
 t_block					*create_space(size_t size, t_block *pre);
-void					*free_place(size_t size, t_block *block);
-t_block					*find_or_create_block(size_t size, t_block **current);
+t_block					*free_place(t_block *block, size_t size);
+t_block					*find_or_create_block(t_block **current, size_t size);
 t_block					*find_block(void *ptr);
 size_t					display_blocks(t_block *blocks);
 

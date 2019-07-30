@@ -12,17 +12,23 @@
 
 #include "../inc/malloc.h"
 
-pthread_mutex_t		g_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-void				*malloc(size_t size)
+static void		allocate_block(t_block *block, size_t size)
 {
-	t_block		*bp;
+	if (g_zone.type != LARGE && block->size > size + B_SIZE)
+		split_block(block, size);
+	block->free = 0;
+}
+
+void			*malloc(size_t size)
+{
+	t_block		*alloc_b;
 	size_t		new_size;
-    
-    ft_putstr("malloc\n");
-	new_size = ALIGN(size, ALIGNEMENT);
+
+	new_size = ALIGN(size, 16);
 	initialize_zone(new_size);
-	bp = find_or_create_block(new_size, g_zone.current);
-	ft_putstr("fin malloc\n");
-    return ((char*)bp + B_SIZE);
+	alloc_b = find_or_create_block(g_zone.current, new_size);
+	if (!alloc_b)
+		return (NULL);
+	allocate_block(alloc_b, new_size);
+	return ((char *)alloc_b + B_SIZE);
 }

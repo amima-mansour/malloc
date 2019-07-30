@@ -16,9 +16,7 @@ void	*calloc(size_t nmemb, size_t size)
 {
 	void	*block;
 
-    ft_putstr("calloc\n");
 	if ((block = malloc(nmemb * size)))
 		ft_bzero(block, nmemb * size);
-    ft_putstr("fin callloc\n");
 	return (block);
 }
