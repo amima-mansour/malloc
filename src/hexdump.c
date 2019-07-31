@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 void	ft_puthex(unsigned char c)
 {

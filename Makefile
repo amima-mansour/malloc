@@ -6,7 +6,7 @@
 #    By: amansour <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 13:33:28 by amansour          #+#    #+#              #
-#    Updated: 2019/07/29 10:07:52 by amansour         ###   ########.fr        #
+#    Updated: 2019/07/02 09:55:59 by amansour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		= $(addprefix $(PATH_SRC)/, \
 							calloc.c\
 							char.c\
 							free.c\
+							hexdump.c\
 							realloc.c\
 							malloc.c\
 							number.c\
@@ -43,7 +44,7 @@ PATH_SRC	= src
 PATH_INC	= inc
 
 NAME		= libft_malloc_$(HOSTTYPE).so
-CFLAGS		= -g -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 DLFLAGS		= -shared -fPIC
 OBJECTS 	= $(SRCS:$(PATH_SRC)/%.c=$(PATH_OBJ)/%.o)
 
@@ -54,10 +55,11 @@ OBJECTS 	= $(SRCS:$(PATH_SRC)/%.c=$(PATH_OBJ)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	@gcc -g $(DLFLAGS) -o $@ $(OBJECTS)
+	@gcc $(DLFLAGS) -o $@ $(OBJECTS)
 	@rm -f libft_malloc.so
 	@ln -s $(NAME) libft_malloc.so
-	@echo libft_malloc.so now link to $(NAME)
+	@echo && echo $(GREEN) "[√]     [libft_malloc.so  Successfully Compiled!]"
+	@echo $(WHITE)
 
 $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 	@mkdir -p $(PATH_OBJ)
@@ -66,11 +68,15 @@ $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 clean:
 	@rm -f $(OBJECTS)
 	@rm -rf $(PATH_OBJ)
-	@echo Delete $(words $(OBJECTS)) object file
 
 fclean: clean
 	@rm -f $(NAME)
 	@rm -f libft_malloc.so
 
 re: fclean $(NAME)
-.PHONY: $(NAME) clean fclean
+
+# Text Colorization------------------------------------------------------------
+GREEN = "\033[1;32m"
+WHITE = "\033[´1;37m"
+
+.PHONY: all clean fclean re

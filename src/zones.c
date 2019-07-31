@@ -6,11 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:28:55 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/29 09:32:01 by amansour         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:29:03 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 void		initialize_zone(size_t size)
 {
@@ -31,15 +31,15 @@ void		initialize_zone(size_t size)
 	}
 }
 
-t_block	*find_addr_in_zone(t_block *blocks, void *ptr)
+t_block		*find_addr_in_zone(t_block *blocks_zone, void *addr)
 {
-	while (blocks)
+	while (blocks_zone)
 	{
-		if ((unsigned char *)blocks + B_SIZE == (unsigned char *)ptr)
-			return (blocks);
-		blocks = blocks->next;
+		if ((unsigned char *)blocks_zone + B_SIZE == (unsigned char *)addr)
+			return (blocks_zone);
+		blocks_zone = blocks_zone->next;
 	}
-	return (NULL);
+	return (blocks_zone);
 }
 
 void		display_zone(t_block *block, size_t *total)
@@ -52,4 +52,22 @@ void		display_zone(t_block *block, size_t *total)
 		ft_putstr("\n");
 		*total += display_blocks(block);
 	}
+}
+
+void		display_zone_hex(t_block *block)
+{
+	int		total;
+
+	total = 0;
+	while (block)
+	{
+		if (block->free == 0)
+		{
+			hexdump((char *)block + B_SIZE, block->size);
+			total++;
+		}
+		block = block->next;
+	}
+	if (total == 0)
+		ft_putstr("No allocation in this type of zone\n");
 }

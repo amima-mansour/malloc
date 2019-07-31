@@ -6,11 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:48:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/29 09:41:17 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:47:56 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 void	merge_blocks(t_block *b1, t_block *b2)
 {

@@ -6,11 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:38:06 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/24 14:38:13 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:47:42 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 void	ft_putchar(char c)
 {

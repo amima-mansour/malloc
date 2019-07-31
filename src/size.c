@@ -6,11 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:41:29 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/24 14:41:41 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:49:09 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 size_t	get_right_mmmap_size(size_t size)
 {

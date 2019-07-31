@@ -6,11 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:42:23 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/24 14:42:34 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:49:31 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

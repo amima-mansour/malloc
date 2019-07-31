@@ -6,11 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:41:49 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/24 14:42:16 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:49:20 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 size_t	ft_strlen(const char *s)
 {

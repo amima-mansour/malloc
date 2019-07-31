@@ -6,11 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:39:51 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/24 14:40:43 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:48:26 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 void		ft_putnbr(int n)
 {

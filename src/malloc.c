@@ -6,11 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:47:23 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/29 09:13:17 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:48:15 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
+#include "malloc.h"
 
 static void		allocate_block(t_block *block, size_t size)
 {

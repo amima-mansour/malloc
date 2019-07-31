@@ -6,12 +6,11 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:36:52 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/29 11:22:28 by amansour         ###   ########.fr       */
+/*   Updated: 2019/07/31 10:47:06 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/malloc.h"
-#include <stdio.h>
+#include "malloc.h"
 
 t_block	*split_block(t_block *block, size_t size)
 {
