@@ -20,7 +20,7 @@ endif
 
 SRCS		= $(addprefix $(PATH_SRC)/, \
 							address.c\
-							blocks_2.c\
+							display_blocks.c\
 							blocks.c\
 							calloc.c\
 							char.c\

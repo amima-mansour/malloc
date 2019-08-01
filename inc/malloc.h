@@ -89,9 +89,6 @@ void                    display_zone_hex(t_block *blocks);
 **	blocks.c
 */
 t_block					*split_block(t_block *block, size_t size);
-t_block					*last_block(t_block *b);
-t_block					*create_space(size_t size, t_block *pre);
-t_block					*free_place(t_block *block, size_t size);
 t_block					*find_or_create_block(t_block **current, size_t size);
 t_block					*find_block(void *ptr);
 size_t					display_blocks(t_block *blocks);

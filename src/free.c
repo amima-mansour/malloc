@@ -31,40 +31,39 @@ void	merge_blocks(t_block *b1, t_block *b2)
 
 void	clear_memory(t_block *block)
 {
-	t_block	*left;
-	t_block	*right;
+	t_block	*l;
+	t_block	*r;
 
 	block->free = 1;
-	left = block->prev;
-	right = block->next;
+	l = block->prev;
+	r = block->next;
 	if (g_zone.type == LARGE)
 	{
-		if (left)
-			left->next = block->next;
+		if (l)
+			l->next = block->next;
 		else
-			g_zone.large = NULL;
-		if (right)
-			right->prev = block->prev;
+			g_zone.large = r;
+		if (r)
+			r->prev = block->prev;
 		munmap(block, block->size + B_SIZE);
 	}
 	else
 	{
-		if (right && right->free == 1)
-			merge_blocks(block, right);
-		if (left && left->free == 1)
-			merge_blocks(left, block);
+		if (r && r->free == 1)
+			merge_blocks(block, r);
+		if (l && l->free == 1)
+			merge_blocks(l, block);
 	}
 
 }
 
 void	free(void *ptr)
 {
-	t_block		*b_exist;
+	t_block		*b;
 
 	if (ptr == NULL)
 		return ;
-	b_exist = find_block(ptr);
-	if (!b_exist)
+	if (!(b = find_block(ptr)))
 		return ;
-	clear_memory(b_exist);
+	clear_memory(b);
 }

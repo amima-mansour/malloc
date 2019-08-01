@@ -12,23 +12,18 @@
 
 #include "malloc.h"
 
-static void		allocate_block(t_block *block, size_t size)
-{
-	if (g_zone.type != LARGE && block->size > size + B_SIZE)
-		split_block(block, size);
-	block->free = 0;
-}
-
 void			*malloc(size_t size)
 {
-	t_block		*alloc_b;
+	t_block		*ptr;
 	size_t		new_size;
 
 	new_size = ALIGN(size, 16);
 	initialize_zone(new_size);
-	alloc_b = find_or_create_block(g_zone.current, new_size);
-	if (!alloc_b)
+	ptr = find_or_create_block(g_zone.current, new_size);
+	if (!ptr)
 		return (NULL);
-	allocate_block(alloc_b, new_size);
-	return ((char *)alloc_b + B_SIZE);
+	if (g_zone.type != LARGE && ptr->size > new_size + B_SIZE)
+		split_block(ptr, new_size);
+	ptr->free = 0;
+	return ((char *)ptr + B_SIZE);
 }

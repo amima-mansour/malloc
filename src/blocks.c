@@ -32,7 +32,7 @@ t_block	*split_block(t_block *block, size_t size)
 	return (block);
 }
 
-t_block	*create_space(size_t size, t_block *previous)
+static t_block	*create_space(size_t size, t_block *prev)
 {
 	t_block	*b;
 	size_t	mmap_size;
@@ -45,13 +45,13 @@ t_block	*create_space(size_t size, t_block *previous)
 	b->free = 1;
 	b->size = mmap_size - B_SIZE;
 	b->next = NULL;
-	b->prev = previous;
-	if (previous)
-		previous->next = b;
+	b->prev = prev;
+	if (prev)
+		prev->next = b;
 	return (b);
 }
 
-t_block	*free_place(t_block *blocks, size_t size)
+static t_block	*free_place(t_block *blocks, size_t size)
 {
 	while (blocks)
 	{
@@ -64,56 +64,21 @@ t_block	*free_place(t_block *blocks, size_t size)
 	return (blocks);
 }
 
-int		is_available_block(t_block *block, size_t size)
-{
-	return (block->size >= size && block->free == 1 ? 1 : 0);
-}
-
 t_block			*find_or_create_block(t_block **blocks, size_t size)
 {
-	t_block		*place;
+	t_block		*ptr;
 
 	if (!*blocks)
 	{
 		*blocks = create_space(size, *blocks);
 		return (*blocks);
 	}
-	place = free_place(*blocks, size);
-	if (is_available_block(place, size))
-		return (place);
+	ptr = free_place(*blocks, size);
+	if (ptr->size >= size && ptr->free == 1)
+		return (ptr);
 	else
-		return (create_space(size, place));
+		return (create_space(size, ptr));
 }
-
-// t_block		*find_or_create_block(size_t size, t_block **current)
-// {
-// 	t_block *block;
-// 	t_block	*b;
-
-// 	if (g_zone.type == LARGE)
-// 	{
-// 		b = last_block(*current);
-// 		block = create_space(size, b);
-// 		if (!*current)
-// 			*current = block;
-// 		return (block);
-// 	}
-// 	if (!*current || (!(block = free_place(size, *current))))
-//     {
-//         b = last_block(*current);
-// 		block = create_space(size, b);
-//     }
-// 	if (block)
-// 		{ft_putstr("lats block size = ");
-// 		ft_putnbr(block->size);
-// 		ft_putstr("\n");
-// 	}
-// 	if (block->size >= size)
-//         block = split_block(block, size);
-// 	if (!*current)
-// 		*current = block;
-// 	return (block);
-// }
 
 t_block			*find_block(void *ptr)
 {
