@@ -12,15 +12,17 @@
 
 #include "malloc.h"
 
-void	*arrange_memory(t_block *block, size_t size)
+static void	*arrange_memory(t_block *block, size_t size)
 {
 	char		*new;
-	enum e_type	old_type;
+	enum e_type	type;
 
-	old_type = g_zone.type;
+	if (size == block->size)
+		return ((char *)block + B_SIZE);
+	type = g_zone.type;
 	new = (char *)malloc(size);
 	ft_memmove(new, (char *)block + B_SIZE, block->size);
-	g_zone.type = old_type;
+	g_zone.type = type;
 	clear_memory(block);
 	return (new);
 }
@@ -29,14 +31,33 @@ void		*realloc(void *ptr, size_t size)
 {
 	size_t		new_size;
 	t_block		*b;
+	t_block		*r;
 
 	if (!ptr)
 		return (malloc(size));
-	b = find_block(ptr);
-	if (!b)
+	pthread_mutex_lock(&g_mutex);
+	if (!(b = find_block(ptr)))
+	{
+		pthread_mutex_unlock(&g_mutex);
 		return (NULL);
+	}
+	if (!size)
+	{
+		free(b);
+		pthread_mutex_unlock(&g_mutex);
+		return (NULL);
+	}
 	new_size = ALIGN(size, 16);
-	if (b->size >= new_size)
-		return (ptr);
-	return (arrange_memory(b, new_size));
+	if (b->size > new_size)
+	{
+		split_block(b, new_size);
+		r = b->next->next;
+		if (r && r->free)
+			merge_blocks(b->next, r);
+		ptr = (char *)b + B_SIZE;
+	}
+	else
+		ptr = arrange_memory(b, new_size);
+	pthread_mutex_unlock(&g_mutex);
+	return (ptr);
 }

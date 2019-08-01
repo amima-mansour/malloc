@@ -16,7 +16,7 @@ void	show_alloc_mem(void)
 {
 	size_t		total;
 
-	//pthread_mutex_lock(&g_mutex);
+	pthread_mutex_lock(&g_mutex);
 	total = 0;
 	ft_putstr("TINY : ");
 	display_zone(g_zone.tiny, &total);
@@ -27,17 +27,17 @@ void	show_alloc_mem(void)
 	ft_putstr("Total : ");
 	ft_put_octet(total);
 	ft_putendl(" octets");
-	//pthread_mutex_unlock(&g_mutex);
+	pthread_mutex_unlock(&g_mutex);
 }
 
 void	show_alloc_mem_hex(void)
 {
-	//pthread_mutex_lock(&g_mutex);
+	pthread_mutex_lock(&g_mutex);
 	ft_putstr("---TINY-------------------------\n");
 	display_zone_hex(g_zone.tiny);
 	ft_putstr("---SMALL------------------------\n");
 	display_zone_hex(g_zone.small);
-	ft_putstr("---LARGE---------------------------\n");
+	ft_putstr("---LARGE------------------------\n");
 	display_zone_hex(g_zone.large);
-	//pthread_mutex_unlock(&g_mutex);
+	pthread_mutex_unlock(&g_mutex);
 }

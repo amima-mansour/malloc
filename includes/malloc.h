@@ -52,7 +52,7 @@ typedef struct			s_zone
 
 t_zone					g_zone;
 
-extern pthread_mutex_t	g_mutex;
+pthread_mutex_t			g_mutex;
 
 /*
 **	malloc.c
@@ -69,7 +69,6 @@ void					merge_blocks(t_block *b1, t_block *b2);
 /*
 ** realloc.c
 */
-void					*arrange_memory(t_block *block, size_t size);
 void					*realloc(void *ptr, size_t size);
 
 /*
@@ -132,5 +131,5 @@ void					ft_putaddr(unsigned long long int n);
 **	show_alloc_mem.c
 */
 void					show_alloc_mem(void);
-
+void					show_alloc_mem_hex(void);
 #endif

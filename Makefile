@@ -40,8 +40,8 @@ SRCS		= $(addprefix $(PATH_SRC)/, \
 ################################################################################
 
 PATH_OBJ	= obj
-PATH_SRC	= src
-PATH_INC	= inc
+PATH_SRC	= srcs
+PATH_INC	= includes
 
 NAME		= libft_malloc_$(HOSTTYPE).so
 CFLAGS		= -Wall -Wextra -Werror
@@ -58,8 +58,7 @@ $(NAME): $(OBJECTS)
 	@gcc $(DLFLAGS) -o $@ $(OBJECTS)
 	@rm -f libft_malloc.so
 	@ln -s $(NAME) libft_malloc.so
-	@echo && echo $(GREEN) "[√]     [libft_malloc.so  Successfully Compiled!]"
-	@echo $(WHITE)
+	@echo $(GREEN) "[√]     [libft_malloc.so  Successfully Compiled!]" $(WHITE)
 
 $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 	@mkdir -p $(PATH_OBJ)
@@ -77,6 +76,5 @@ re: fclean $(NAME)
 
 # Text Colorization------------------------------------------------------------
 GREEN = "\033[1;32m"
-WHITE = "\033[´1;37m"
-
+WHITE = "\033[´0m"
 .PHONY: all clean fclean re

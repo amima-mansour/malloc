@@ -63,7 +63,12 @@ void	free(void *ptr)
 
 	if (ptr == NULL)
 		return ;
+	pthread_mutex_lock(&g_mutex);
 	if (!(b = find_block(ptr)))
+	{
+		pthread_mutex_unlock(&g_mutex);
 		return ;
+	}
 	clear_memory(b);
+	pthread_mutex_unlock(&g_mutex);
 }

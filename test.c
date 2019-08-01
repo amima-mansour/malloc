@@ -317,14 +317,14 @@ int		main(void)
 	ft_putstr("\n");
 	test_malloc_free();
 	test_malloc_free2();
-    /*ft_putstr("\n");
+    ft_putstr("\n");
 	//
 	test_realloc1();
 	test_realloc2();
 	test_realloc3();
 	test_realloc4();
 
-	test_defragm1();
+	/*test_defragm1();
 	test_defragm2();
 	test_defragm3();
 	test_defragm4();

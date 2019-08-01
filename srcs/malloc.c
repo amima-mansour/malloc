@@ -14,16 +14,20 @@
 
 void			*malloc(size_t size)
 {
-	t_block		*ptr;
+	t_block		*b;
 	size_t		new_size;
 
+	pthread_mutex_lock(&g_mutex);
 	new_size = ALIGN(size, 16);
 	initialize_zone(new_size);
-	ptr = find_or_create_block(g_zone.current, new_size);
-	if (!ptr)
+	if (!(b = find_or_create_block(g_zone.current, new_size)))
+	{
+		pthread_mutex_unlock(&g_mutex);
 		return (NULL);
-	if (g_zone.type != LARGE && ptr->size > new_size + B_SIZE)
-		split_block(ptr, new_size);
-	ptr->free = 0;
-	return ((char *)ptr + B_SIZE);
+	}
+	if (g_zone.type != LARGE && b->size > new_size + B_SIZE)
+		split_block(b, new_size);
+	b->free = 0;
+	pthread_mutex_unlock(&g_mutex);
+	return ((char *)b + B_SIZE);
 }
