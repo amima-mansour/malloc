@@ -6,6 +6,8 @@ void	*malloc_basic_test(size_t size)
 	size_t	i;
 	char	*addr;
     
+    printf("malloc start\n");
+    printf("size = %zu\n", size);
 	addr = malloc(size);
 	i = 0;
 	while (i < size)
@@ -53,19 +55,25 @@ void	test_malloc_free(void)
 	ft_putstr("\n");
 	free(a);
 	free(c);
-	free(b);
-	show_alloc_mem();
+    show_alloc_mem();
+	/*free(b);
+    ft_putstr("free\n");
+	ft_putstr("\nAFTER FREE :\n");
+	show_alloc_mem();*/
 	ft_putendl("-----------------------------------");
 }
 
 void	test_malloc_free2(void)
 {
-	ft_putendl("--- MALLOC FREE2 -------------------");
+	ft_putendl("--- MALLOC FREE -------------------");
 	char	*a;
 
 	a = malloc_basic_test(1024);
+	ft_putstr("\nBEFORE FREE :\n");
 	show_alloc_mem();
+	ft_putstr("\n");
 	free(a);
+	ft_putstr("\nAFTER FREE :\n");
 	show_alloc_mem();
 	ft_putendl("-----------------------------------");
 }
@@ -78,12 +86,17 @@ void	test_realloc1(void)
 
     ft_putendl("--- REALLOC-------------------");
 	a = malloc_basic_test(10);
-	show_alloc_mem();
-    ft_putendl("----Fin Show-------------------");
-    b = realloc(a, 16);
-	show_alloc_mem();
-    ft_putendl("----Fin Show-------------------");
-    c = realloc(b, 32);
+	printf("addr of a = %p\n", a);
+	printf("a = %s\n", a);
+
+	b = realloc(a, 16);
+	printf("addr of b = %p\n", b);
+	printf("b = %s\n", b);
+
+	c = realloc(b, 32);
+	printf("addr of c = %p\n", c);
+	printf("c = %s\n", c);
+
 	show_alloc_mem();
 	ft_putendl("--------------------------------");
 }
@@ -98,19 +111,17 @@ void	test_realloc2(void)
 	printf("addr of a = %p\n", a);
 	a[15] = '\0';
 	printf("a = %s\n", a);
-    show_alloc_mem();
-    ft_putstr("\n");
+
 	malloc_basic_test(15);
-    show_alloc_mem();
-    ft_putstr("\n");
+
 	b = realloc(a, 8007);
 	printf("addr of b = %p\n", b);
 	printf("b = %s\n", b);
-    show_alloc_mem();
-    ft_putstr("\n");
+
 	c = realloc(b, 7);
-	printf("addr of c = %p\n", c);
+	printf("addr of d = %p\n", c);
 	printf("c = %s\n", c);
+
 	show_alloc_mem();
 }
 
@@ -121,7 +132,7 @@ void	test_realloc3(void)
 
 	a = malloc_basic_test(15);
 	printf("addr of a = %p\n", a);
-    show_alloc_mem();
+
 	b = realloc(a, 600);
 	printf("addr of b = %p\n", b);
 
@@ -152,8 +163,7 @@ void	test_defragm1(void)
 
 	a = malloc_basic_test(89);
 	b = malloc_basic_test(12);
-	show_alloc_mem();
-    free(a);
+	free(a);
 	free(b);
 	ft_putstr("\n");
 	show_alloc_mem();
@@ -186,8 +196,7 @@ void	test_defragm3(void)
 	a = malloc_basic_test(54155);
 	b = malloc_basic_test(154142);
 	c = malloc_basic_test(541551);
-	show_alloc_mem();
-    free(b);
+	free(b);
 	free(c);
 	free(a);
 	ft_putstr("\n");
@@ -204,8 +213,7 @@ void	test_defragm4(void)
 	a = malloc_basic_test(0);
 	b = malloc_basic_test(0);
 	c = malloc_basic_test(0);
-	show_alloc_mem();
-    free(b);
+	free(b);
 	free(c);
 	ft_putstr("\n");
 	show_alloc_mem();
@@ -218,8 +226,8 @@ void	test_hex_dump1(void)
 
 	a = malloc(23);
 	a[0] = 12;
-	a[22] = 'c';
-	a[12] = 56;
+	a[22] = 56;
+	a[12] = 'c';
 	hexdump(a, 23);
 }
 
@@ -277,14 +285,14 @@ static char	*ft_strdup(const char *src)
 
 void	test_alloc_mem_hex(void)
 {
-char	*a;
+	char	*a;
 
-	ft_strdup("ciao les nazes !\n ");
+	ft_strdup("ciao les nazes !\n");
 	a = ft_strdup("je vais free cette partie !\n");
 	ft_strdup("je ne sais pas quoi ecrire !\n");
-	//free(a);
+	free(a);
 	ft_putstr("\n");
-	//show_alloc_mem_hex();
+	show_alloc_mem_hex();
 }
 
 void	fuck_tests(void)
@@ -292,58 +300,45 @@ void	fuck_tests(void)
 	char	*a;
 	char	*b;
 	char	*fuck;
-    size_t  i;
-    int     nb;
 
-    nb = -1;
-    i = (size_t)nb;
-    printf("%zu\n", i);
-    fuck = malloc(-1);
-    //show_alloc_mem();
+	fuck = malloc(-1);
 	a = malloc(0);
-    //show_alloc_mem();
 	fuck = realloc(a, -123);
-	//show_alloc_mem();
-    b = realloc(a, 0);
-	show_alloc_mem();
-    fuck = calloc(-2, -2);
-	nb = -2;
-    i = (size_t)(-2 * -2);
-    printf("%zu\n", i);
-    show_alloc_mem();
-    fuck = calloc(0, 200);
+	b = realloc(a, 0);
+	fuck = calloc(-2, -2);
+	fuck = calloc(0, 200);
 	ft_putstr("\n");
 	show_alloc_mem();
 }
 
 int		main(void)
 {
-	/*test_only_malloc();
-    ft_putstr("\n");
+	test_only_malloc();
+	ft_putstr("\n");
 	test_malloc_free();
 	test_malloc_free2();
     ft_putstr("\n");
-	
+	//
 	test_realloc1();
-	test_realloc2();*/
-	//test_realloc3();
-	//test_realloc4();
+	test_realloc2();
+	test_realloc3();
+	test_realloc4();
 
-	//test_defragm1();
-	//test_defragm2();
-	//test_defragm3();
-	//test_defragm4();
+	/*test_defragm1();
+	test_defragm2();
+	test_defragm3();
+	test_defragm4();
 
-	//test_hex_dump1();
-	//ft_putstr("\n");
-	//test_hex_dump2();
-	//ft_putstr("\n");
-	//test_hex_dump3();
+	test_hex_dump1();
+	ft_putstr("\n");
+	test_hex_dump2();
+	ft_putstr("\n");
+	test_hex_dump3();
 
-//	test_alloc_mem_hex();
+	test_alloc_mem_hex();
 
-//	show_alloc_mem_hex();
+	show_alloc_mem_hex();
 
-	fuck_tests();
+	fuck_tests();*/
 	return (0);
 }
