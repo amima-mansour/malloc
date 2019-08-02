@@ -6,11 +6,12 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:38:32 by amansour          #+#    #+#             */
-/*   Updated: 2019/06/27 17:25:48 by amansour         ###   ########.fr       */
+/*   Updated: 2019/08/02 12:10:34 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+#include <stdio.h>
 
 void	ft_puthex(unsigned char c)
 {
@@ -23,18 +24,19 @@ void	write_hexa_characters(void *addr, size_t size)
 	size_t	i;
 
 	i = 0;
-	while (i < 16 && i < size)
+	while (i < 16)
 	{
-		ft_puthex(*((unsigned char *)addr + i));
-		ft_putchar(' ');
-		if (i / 16 == 2)
+		if (i < size)
+		{
+			ft_puthex(*((unsigned char *)addr + i));
 			ft_putchar(' ');
+			if (i / 16 == 2)
+				ft_putchar(' ');
+		}
+		else
+			ft_putstr("   ");
 		i++;
 	}
-	if (i < 8)
-		ft_putchar(' ');
-	while (i++ < 16)
-		ft_putstr("  ");
 }
 
 void	write_characters(void *addr, size_t size)
@@ -51,7 +53,7 @@ void	write_characters(void *addr, size_t size)
 			ft_putchar(c);
 		else
 			ft_putchar('.');
-		i++;
+		++i;
 	}
 	ft_putchar('|');
 }
@@ -68,10 +70,13 @@ void	hexdump_line(void *addr, size_t size)
 void	hexdump(void *addr, size_t size)
 {
 	hexdump_line(addr, size);
-	size -= 16;
-	if (size > 0)
+	if (size / 16)
 	{
 		addr += 16;
-		hexdump(addr, size);
+		size -= 16;
 	}
+	else
+		size = 0;
+	if (size)
+		hexdump_line(addr, size);
 }
