@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:36:23 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/31 10:44:43 by amansour         ###   ########.fr       */
+/*   Updated: 2019/08/02 10:02:08 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void					*calloc(size_t nmemb, size_t size);
 t_block					*find_addr_in_zone(t_block *blocks_zone, void *addr);
 void					initialize_zone(size_t size);
 void					display_zone(t_block *blocks, size_t *total);
-void                    display_zone_hex(t_block *blocks);
+void					display_zone_hex(t_block *blocks);
 
 /*
 **	blocks.c
@@ -91,7 +91,7 @@ t_block					*split_block(t_block *block, size_t size);
 t_block					*find_or_create_block(t_block **current, size_t size);
 t_block					*find_block(void *ptr);
 size_t					display_blocks(t_block *blocks);
-void                    hexdump(void *addr, size_t size);
+void					hexdump(void *addr, size_t size);
 
 /*
 **	tools.c

@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:47:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/31 10:48:37 by amansour         ###   ########.fr       */
+/*   Updated: 2019/08/02 09:59:05 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,14 @@ void		*realloc(void *ptr, size_t size)
 {
 	size_t		new_size;
 	t_block		*b;
-	t_block		*r;
 
 	if (!ptr)
 		return (malloc(size));
 	pthread_mutex_lock(&g_mutex);
-	if (!(b = find_block(ptr)))
+	if (!(b = find_block(ptr)) || (b && !size))
 	{
-		pthread_mutex_unlock(&g_mutex);
-		return (NULL);
-	}
-	if (!size)
-	{
-		free(b);
+		if (b)
+			free(b);
 		pthread_mutex_unlock(&g_mutex);
 		return (NULL);
 	}
@@ -51,9 +46,8 @@ void		*realloc(void *ptr, size_t size)
 	if (b->size > new_size)
 	{
 		split_block(b, new_size);
-		r = b->next->next;
-		if (r && r->free)
-			merge_blocks(b->next, r);
+		if (b->next->next && b->next->next->free)
+			merge_blocks(b->next, b->next->next);
 		ptr = (char *)b + B_SIZE;
 	}
 	else

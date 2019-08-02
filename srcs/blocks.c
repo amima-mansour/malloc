@@ -6,13 +6,13 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 14:36:52 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/31 10:47:06 by amansour         ###   ########.fr       */
+/*   Updated: 2019/08/02 09:38:44 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-t_block	*split_block(t_block *block, size_t size)
+t_block			*split_block(t_block *block, size_t size)
 {
 	t_block		*new_block;
 	t_block		*right;

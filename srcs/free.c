@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:48:37 by amansour          #+#    #+#             */
-/*   Updated: 2019/07/31 10:47:56 by amansour         ###   ########.fr       */
+/*   Updated: 2019/08/02 09:40:27 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	clear_memory(t_block *block)
 		if (l && l->free == 1)
 			merge_blocks(l, block);
 	}
-
 }
 
 void	free(void *ptr)
