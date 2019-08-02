@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 13:47:23 by amansour          #+#    #+#             */
-/*   Updated: 2019/08/02 12:37:34 by amansour         ###   ########.fr       */
+/*   Updated: 2019/08/02 14:09:01 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			*malloc(size_t size)
 	if ((int)size < 0)
 		return (NULL);
 	pthread_mutex_lock(&g_mutex);
-	new_size = ALIGN(size, 16);
+    new_size = ALIGN(size, 16);
 	initialize_zone(new_size);
 	if (!(b = find_or_create_block(g_zone.current, new_size)))
 	{
